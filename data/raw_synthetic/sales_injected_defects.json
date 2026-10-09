@@ -1,0 +1,1 @@
+{"duplicate_rows": 120000, "negative_price_rows": 12000, "zero_price_rows": 48000, "zero_quantity_rows": 40000, "negative_quantity_rows": 800000, "future_date_rows": 40000, "invalid_date_rows": 8000, "lowercase_stockcode_rows": 200000, "outlier_quantity_rows": 160, "null_customer_rows": 3998448}

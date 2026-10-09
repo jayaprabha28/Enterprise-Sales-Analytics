@@ -1,0 +1,21 @@
+{
+  "snapshot_date": "2011-12-09",
+  "gross_revenue": 20476260.43,
+  "returns_refunds": 1462050.61,
+  "net_revenue": 19014209.82,
+  "orders": 41938,
+  "lines": 1010534,
+  "customers_with_id": 5881,
+  "products": 4793,
+  "countries": 43,
+  "aov": 453.39,
+  "return_rate_pct": 7.14,
+  "net_revenue_2010": 9216135.86,
+  "net_revenue_2011_partial": 9001425.46,
+  "yoy_growth_pct": -2.3,
+  "guest_line_share_pct": 22.9,
+  "churn_rate_pct": 50.9,
+  "top_country_share_pct": 85.0,
+  "dead_stock_products": 1640,
+  "total_products": 4813
+}

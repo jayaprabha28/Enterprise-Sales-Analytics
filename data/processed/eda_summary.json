@@ -1,0 +1,94 @@
+{
+  "best_sales_month": {
+    "year_month": "2011-11",
+    "net_revenue": 1456145.8
+  },
+  "worst_sales_month": {
+    "year_month": "2011-04",
+    "net_revenue": 492367.84
+  },
+  "yoy_like_for_like": {
+    "revenue_2010_jan_dec9": 8845679.07,
+    "revenue_2011_jan_dec9": 9001425.46,
+    "growth_pct": 1.76
+  },
+  "top_region": {
+    "region": "United Kingdom",
+    "net_revenue": 16144736.46,
+    "share_pct": 84.91
+  },
+  "top_country": {
+    "country": "United Kingdom",
+    "net_revenue": 16144736.46,
+    "share_pct": 84.91
+  },
+  "top_category": {
+    "category": "Other Products",
+    "net_revenue": 7717775.11,
+    "share_pct": 40.59
+  },
+  "top_product": {
+    "stockcode": "22423",
+    "description": "REGENCY CAKESTAND 3 TIER",
+    "net_revenue": 314045.02
+  },
+  "aov": {
+    "mean": 488.25,
+    "median": 290.74,
+    "p90": 898.47
+  },
+  "new_vs_returning_share": {
+    "new_customer_revenue_pct": 17.4,
+    "returning_customer_revenue_pct": 82.6
+  },
+  "peak_weekday": {
+    "day_name": "Thu",
+    "revenue": 4195212.76
+  },
+  "low_weekday": {
+    "day_name": "Sat",
+    "revenue": 9803.05
+  },
+  "return_rate_by_category": {
+    "Marketplace Fees": 1182.29,
+    "Manual Adjustments": 121.71,
+    "Samples & Giveaways": 54.72,
+    "Stationery & Gifting": 11.07,
+    "Lighting": 4.77
+  },
+  "guest_revenue_share_pct": 15.15,
+  "customer_base": {
+    "churned_pct": 50.86,
+    "avg_recency_days": 201.0,
+    "median_frequency": 3.0,
+    "median_monetary": 838.27
+  },
+  "cohort_best_retention_pct": 42.51,
+  "product_health": {
+    "dead_stock_count": 1640,
+    "declining_products_90d_count": 842,
+    "growing_products_90d_count": 1699
+  },
+  "top5_categories": [
+    {
+      "category": "Other Products",
+      "net_revenue": 7717775.11
+    },
+    {
+      "category": "Bags & Travel",
+      "net_revenue": 1919639.92
+    },
+    {
+      "category": "Christmas & Seasonal",
+      "net_revenue": 1688996.75
+    },
+    {
+      "category": "Stationery & Gifting",
+      "net_revenue": 1617552.89
+    },
+    {
+      "category": "Drinkware",
+      "net_revenue": 1484403.36
+    }
+  ]
+}

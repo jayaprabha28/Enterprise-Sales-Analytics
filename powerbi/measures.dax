@@ -1,0 +1,362 @@
+// ============================================================================
+// Enterprise Sales Analytics — Power BI measures  (powerbi/measures.dax)
+// Currency: GBP. Store all measures in a dedicated table named _Measures
+// (see powerbi/README.md step 5). Paste one measure per "New measure" unless
+// using Tabular Editor (paste all, then Save).
+//
+// Name collisions: [Orders], [AOV] and [Units] share names with flat columns
+// ('monthly_series'[orders]/[aov]/[units], 'dim_customer'[orders]). Power BI
+// resolves unqualified [Name] to the measure; qualify with the table name when
+// you need the column, e.g. 'monthly_series'[orders].
+//
+// Format strings (Measure tools > Format):
+//   £ amounts      £#,##0.00   (cards: £#,##0)
+//   Percentages    0.0%        (YoY may show negative: 0.0%;-0.0%)
+//   Counts         #,##0
+// ============================================================================
+
+
+// ─────────────────────────────────────────────
+// [Core KPIs]
+// ─────────────────────────────────────────────
+
+// Format: £#,##0
+Gross Revenue = SUM ( 'fact_sales'[line_revenue] )
+
+// Format: £#,##0
+Total Refunds = SUM ( 'fact_returns'[refund_amount] )
+
+// Format: £#,##0
+Net Revenue = [Gross Revenue] - [Total Refunds]
+
+// Format: #,##0 — distinct invoices (credit notes live in fact_returns)
+Orders = DISTINCTCOUNT ( 'fact_sales'[invoice] )
+
+// Format: #,##0 — registered customers only; guest lines excluded (NULL key)
+Active Customers =
+CALCULATE (
+    DISTINCTCOUNT ( 'fact_sales'[customer_key] ),
+    NOT ISBLANK ( 'fact_sales'[customer_key] )
+)
+
+// Format: £#,##0.00
+AOV = DIVIDE ( [Net Revenue], [Orders] )
+
+// Format: #,##0
+Units = SUM ( 'fact_sales'[quantity] )
+
+// Format: 0.00% — refunds / gross revenue (checks to 7.14% overall)
+Return Rate % = DIVIDE ( [Total Refunds], [Gross Revenue] )
+
+
+// ─────────────────────────────────────────────
+// [Time Intelligence]  (all require the date filter to come from 'dim_date')
+// ─────────────────────────────────────────────
+
+// Format: £#,##0
+PY Net Revenue =
+CALCULATE ( [Net Revenue], SAMEPERIODLASTYEAR ( 'dim_date'[full_date] ) )
+
+// Format: 0.0%;-0.0%
+YoY Growth % = DIVIDE ( [Net Revenue] - [PY Net Revenue], [PY Net Revenue] )
+
+// Format: £#,##0
+Prior Month Net Revenue =
+CALCULATE ( [Net Revenue], DATEADD ( 'dim_date'[full_date], -1, MONTH ) )
+
+// Format: 0.0%;-0.0%
+MoM Growth % =
+DIVIDE ( [Net Revenue] - [Prior Month Net Revenue], [Prior Month Net Revenue] )
+
+// Format: £#,##0 — year-to-date against the last date in context
+Net Revenue YTD = TOTALYTD ( [Net Revenue], 'dim_date'[full_date] )
+
+// Format: £#,##0 — trailing 30 days ending at the latest date in context
+Rolling 30-Day Net Revenue =
+CALCULATE (
+    [Net Revenue],
+    DATESINPERIOD ( 'dim_date'[full_date], MAX ( 'dim_date'[full_date] ), -30, DAY )
+)
+
+// Format: £#,##0 — highest month total within the current filter context
+Best Month Net Revenue =
+VAR Monthly =
+    ADDCOLUMNS (
+        VALUES ( 'dim_date'[year_month] ),
+        "@net", CALCULATE ( [Net Revenue] )
+    )
+RETURN
+    MAXX ( Monthly, [@net] )
+
+// Format: none — label matching Best Month Net Revenue (e.g. "2010-11")
+Best Month Label =
+VAR Monthly =
+    ADDCOLUMNS (
+        VALUES ( 'dim_date'[year_month] ),
+        "@net", CALCULATE ( [Net Revenue] )
+    )
+VAR Best = TOPN ( 1, Monthly, [@net], DESC )
+RETURN
+    CONCATENATEX ( Best, 'dim_date'[year_month], ", " )
+
+
+// ─────────────────────────────────────────────
+// [Customer Intelligence]  (flat table 'customer_insights' — disconnected;
+// sums use its own columns, never fact measures)
+// ─────────────────────────────────────────────
+
+// Format: #,##0
+Churned Customers =
+CALCULATE (
+    COUNTROWS ( 'customer_insights' ),
+    KEEPFILTERS ( 'customer_insights'[churned_actual] = 1 )
+)
+
+// Format: 0.0% — churned / all customers in scope (checks to 50.9%)
+Churn Rate % = DIVIDE ( [Churned Customers], COUNTROWS ( 'customer_insights' ) )
+
+// Format: £#,##0 — lifetime value of High-risk customers
+Revenue at Risk =
+CALCULATE (
+    SUM ( 'customer_insights'[monetary] ),
+    KEEPFILTERS ( 'customer_insights'[risk_level] = "High" )
+)
+
+// Format: 0.0% — Champions' monetary share of all selected customers
+Champion Revenue Share =
+VAR ChampionRev =
+    CALCULATE (
+        SUM ( 'customer_insights'[monetary] ),
+        KEEPFILTERS ( 'customer_insights'[rfm_segment] = "Champions" )
+    )
+VAR TotalRev =
+    CALCULATE (
+        SUM ( 'customer_insights'[monetary] ),
+        ALLSELECTED ( 'customer_insights'[rfm_segment] )
+    )
+RETURN
+    DIVIDE ( ChampionRev, TotalRev )
+
+// Format: £#,##0 — sales minus refunds for identified customers
+Registered Net Revenue =
+VAR RegGross = CALCULATE ( [Gross Revenue], NOT ISBLANK ( 'fact_sales'[customer_key] ) )
+VAR RegRefunds =
+    CALCULATE ( [Total Refunds], NOT ISBLANK ( 'fact_returns'[customer_key] ) )
+RETURN
+    RegGross - RegRefunds
+
+// Format: £#,##0 — sales minus refunds for anonymous checkout (NULL keys)
+Guest Net Revenue =
+VAR GuestGross = CALCULATE ( [Gross Revenue], ISBLANK ( 'fact_sales'[customer_key] ) )
+VAR GuestRefunds =
+    CALCULATE ( [Total Refunds], ISBLANK ( 'fact_returns'[customer_key] ) )
+RETURN
+    GuestGross - GuestRefunds
+
+// Format: 0.0% — Registered + Guest = 100% of Net Revenue
+Guest Revenue % = DIVIDE ( [Guest Net Revenue], [Net Revenue] )
+
+// Format: #,##0 — 1 = largest customer by 'customer_insights'[monetary]
+Customer Revenue Rank =
+RANKX (
+    ALLSELECTED ( 'customer_insights'[customer_id] ),
+    CALCULATE ( SUM ( 'customer_insights'[monetary] ) ),
+    ,
+    DESC,
+    DENSE
+)
+
+// Format: 0.0% — Pareto curve; intended for tables of <= 100 customers
+// (heavy: re-ranks per candidate row; use quick measure "Cumulative value"
+// on Sum of monetary ordered by customer_id as a lighter alternative)
+Customer Cumulative Share % =
+VAR CurrentRank = [Customer Revenue Rank]
+VAR TotalRev =
+    CALCULATE (
+        SUM ( 'customer_insights'[monetary] ),
+        ALLSELECTED ( 'customer_insights'[customer_id] )
+    )
+VAR CumulativeRev =
+    CALCULATE (
+        SUM ( 'customer_insights'[monetary] ),
+        FILTER (
+            ALLSELECTED ( 'customer_insights'[customer_id] ),
+            RANKX (
+                ALLSELECTED ( 'customer_insights'[customer_id] ),
+                CALCULATE ( SUM ( 'customer_insights'[monetary] ) ),
+                ,
+                DESC,
+                DENSE
+            ) <= CurrentRank
+        )
+    )
+RETURN
+    DIVIDE ( CumulativeRev, TotalRev )
+
+// ─────────────────────────────────────────────
+// [Product & Profitability]
+// ─────────────────────────────────────────────
+
+// Format: £#,##0 — net revenue ignoring any other dim_product filter,
+// so a row always totals its whole category
+Category Net Revenue =
+CALCULATE ( [Net Revenue], ALLEXCEPT ( 'dim_product', 'dim_product'[category] ) )
+
+// Format: 0.0% — Class A share of product gross revenue (flat table,
+// sums 'product_features'[gross_revenue]; checks to ~80% of revenue)
+ABC A Revenue Share =
+VAR ClassA =
+    CALCULATE (
+        SUM ( 'product_features'[gross_revenue] ),
+        KEEPFILTERS ( 'product_features'[abc_class] = "A" )
+    )
+VAR ClassTotal =
+    CALCULATE (
+        SUM ( 'product_features'[gross_revenue] ),
+        ALLSELECTED ( 'product_features'[abc_class] )
+    )
+RETURN
+    DIVIDE ( ClassA, ClassTotal )
+
+// Format: #,##0 — checks to 1,640 (kpi_summary.dead_stock_products)
+Dead Stock SKUs =
+CALCULATE (
+    COUNTROWS ( 'inventory_features' ),
+    KEEPFILTERS ( 'inventory_features'[movement_class] = "Dead Stock" )
+)
+
+// Format: #,##0 — 'product_features'[return_rate] is a 0–1 fraction
+Products with Returns Over 10% =
+CALCULATE (
+    COUNTROWS ( 'product_features' ),
+    KEEPFILTERS ( 'product_features'[return_rate] > 0.1 )
+)
+
+// Format: £#,##0.00 — simple average of invoice lines
+Avg Unit Price = AVERAGE ( 'fact_sales'[unit_price] )
+
+// Format: 0.0% — revenue from products priced above catalog median;
+// service rows with blank typical_price are excluded from the numerator
+Above-Median Price Revenue Share =
+VAR MedianPrice =
+    CALCULATE (
+        MEDIAN ( 'dim_product'[typical_price] ),
+        ALL ( 'dim_product' ),
+        NOT ISBLANK ( 'dim_product'[typical_price] )
+    )
+VAR PricedAbove =
+    CALCULATE ( [Gross Revenue], 'dim_product'[typical_price] > MedianPrice )
+RETURN
+    DIVIDE ( PricedAbove, [Gross Revenue] )
+
+// Format: 0.0% — complement, so the stacked pair sums to exactly 100%
+// (includes products with blank typical_price)
+Below-Median Price Revenue Share = 1 - [Above-Median Price Revenue Share]
+
+
+// ─────────────────────────────────────────────
+// [Forecast & Risk]
+// ─────────────────────────────────────────────
+
+// Format: £#,##0 — Seasonal Naive forecast (best backtest model, WMAPE 6.1%)
+// in context (unfiltered context = 2011-12-01). Returns BLANK if the
+// forecast table has no matching row; requires 'forecast_monthly' rows
+// filtered to one model per month (guaranteed by the export).
+Forecast Net Revenue (Next Month) =
+VAR NextMonth = EOMONTH ( MAX ( 'dim_date'[full_date] ), 0 ) + 1
+RETURN
+    LOOKUPVALUE (
+        'forecast_monthly'[forecast_net_revenue],
+        'forecast_monthly'[forecast_month], NextMonth,
+        'forecast_monthly'[model], "Seasonal Naive"
+    )
+
+// Format: £#,##0
+Forecast Low (Next Month) =
+VAR NextMonth = EOMONTH ( MAX ( 'dim_date'[full_date] ), 0 ) + 1
+RETURN
+    LOOKUPVALUE (
+        'forecast_monthly'[lower_95],
+        'forecast_monthly'[forecast_month], NextMonth,
+        'forecast_monthly'[model], "Seasonal Naive"
+    )
+
+// Format: £#,##0
+Forecast High (Next Month) =
+VAR NextMonth = EOMONTH ( MAX ( 'dim_date'[full_date] ), 0 ) + 1
+RETURN
+    LOOKUPVALUE (
+        'forecast_monthly'[upper_95],
+        'forecast_monthly'[forecast_month], NextMonth,
+        'forecast_monthly'[model], "Seasonal Naive"
+    )
+
+// Format: #,##0 — SKUs with at least one stockout week in the last 52 weeks
+SKUs with Stockouts (52w) =
+CALCULATE (
+    COUNTROWS ( 'inventory_features' ),
+    'inventory_features'[stockout_weeks_52w] > 0
+)
+
+// Format: 0.000 — best (highest AUC) row of 'model_metrics'
+Churn Model AUC =
+VAR TopModel = TOPN ( 1, ALL ( 'model_metrics' ), 'model_metrics'[auc], DESC )
+RETURN
+    MAXX ( TopModel, 'model_metrics'[auc] )
+
+// Format: none (text card)
+// 'model_metrics' exposes auc / accuracy / precision / recall / f1 —
+// there is no MAPE column, so the note reports AUC + accuracy and points at
+// the 95% interval from 'forecast_monthly' for forecast error.
+Forecast Accuracy Note =
+VAR TopModel = TOPN ( 1, ALL ( 'model_metrics' ), 'model_metrics'[auc], DESC )
+VAR ModelName = CONCATENATEX ( TopModel, 'model_metrics'[model], ", " )
+VAR ModelAuc = MAXX ( TopModel, 'model_metrics'[auc] )
+VAR ModelAcc = MAXX ( TopModel, 'model_metrics'[accuracy] )
+RETURN
+    "Churn model " & ModelName
+        & ": AUC " & FORMAT ( ModelAuc, "0.000" )
+        & ", accuracy " & FORMAT ( ModelAcc, "0.00" )
+        & " | Forecast: Seasonal Naive with 95% interval (model_metrics has no MAPE column)"
+
+
+// ─────────────────────────────────────────────
+// [Benchmark / Formatting]
+// ─────────────────────────────────────────────
+
+// Format: 0.0% — share of net revenue across the selected date/category/
+// country context (benchmark lines on cards and tables)
+% of Total Net Revenue =
+VAR SelectedTotal =
+    CALCULATE (
+        [Net Revenue],
+        ALLSELECTED ( 'dim_date' ),
+        ALLSELECTED ( 'dim_product' ),
+        ALLSELECTED ( 'dim_country' )
+    )
+RETURN
+    DIVIDE ( [Net Revenue], SelectedTotal )
+
+// Format: 0.0% — leader's share of revenue across selected countries
+// (checks to ~85% — kpi_summary.top_country_share_pct)
+Top Country Revenue Share % =
+VAR Countries = ALLSELECTED ( 'dim_country'[country] )
+VAR CountryRev =
+    ADDCOLUMNS ( Countries, "@nr", CALCULATE ( [Net Revenue] ) )
+VAR TopRev = MAXX ( CountryRev, [@nr] )
+VAR TotalRev = CALCULATE ( [Net Revenue], Countries )
+RETURN
+    DIVIDE ( TopRev, TotalRev )
+
+// Format: none (text card) — arrow indicator vs prior year
+// UNICHAR(9650)=up arrow, UNICHAR(9660)=down arrow
+Net Revenue vs PY Indicator =
+VAR YoY = [YoY Growth %]
+VAR Arrow = IF ( YoY >= 0, UNICHAR ( 9650 ) & " ", UNICHAR ( 9660 ) & " " )
+RETURN
+    IF (
+        ISBLANK ( YoY ),
+        "No PY comparison",
+        Arrow & FORMAT ( ABS ( YoY ), "0.0%" ) & " vs PY"
+    )
+

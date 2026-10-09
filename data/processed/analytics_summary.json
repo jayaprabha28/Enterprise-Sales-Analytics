@@ -1,0 +1,312 @@
+{
+  "gross_revenue": 20476260.43,
+  "returns_refunds": 1462050.61,
+  "net_revenue": 19014209.82,
+  "realization_pct": 92.86,
+  "waterfall_by_year": [
+    {
+      "year": 2009,
+      "gross_revenue": 822483.95,
+      "refunds": 25835.45,
+      "net_revenue": 796648.5,
+      "realization_pct": 96.86
+    },
+    {
+      "year": 2010,
+      "gross_revenue": 9833100.41,
+      "refunds": 616964.55,
+      "net_revenue": 9216135.86,
+      "realization_pct": 93.73
+    },
+    {
+      "year": 2011,
+      "gross_revenue": 9820676.07,
+      "refunds": 819250.61,
+      "net_revenue": 9001425.46,
+      "realization_pct": 91.66
+    }
+  ],
+  "concentration": {
+    "top_1pct_customers_share_pct": 31.0,
+    "top_10pct_customers_share_pct": 63.3,
+    "top_20pct_customers_share_pct": 76.9
+  },
+  "top_category_economics": [
+    {
+      "category": "Other Products",
+      "gross_revenue": 7987818.47,
+      "refunds": 270043.36,
+      "net_revenue": 7717775.109999999,
+      "realization_pct": 96.62,
+      "share_pct": 40.75,
+      "cum_share_pct": 40.75
+    },
+    {
+      "category": "Bags & Travel",
+      "gross_revenue": 1952998.73,
+      "refunds": 33358.81,
+      "net_revenue": 1919639.92,
+      "realization_pct": 98.29,
+      "share_pct": 10.13,
+      "cum_share_pct": 50.88
+    },
+    {
+      "category": "Christmas & Seasonal",
+      "gross_revenue": 1733967.8699999999,
+      "refunds": 44971.12,
+      "net_revenue": 1688996.7499999998,
+      "realization_pct": 97.41,
+      "share_pct": 8.92,
+      "cum_share_pct": 59.8
+    },
+    {
+      "category": "Stationery & Gifting",
+      "gross_revenue": 1818959.92,
+      "refunds": 201407.03,
+      "net_revenue": 1617552.89,
+      "realization_pct": 88.93,
+      "share_pct": 8.54,
+      "cum_share_pct": 68.34
+    },
+    {
+      "category": "Drinkware",
+      "gross_revenue": 1521968.3699999999,
+      "refunds": 37565.01,
+      "net_revenue": 1484403.3599999999,
+      "realization_pct": 97.53,
+      "share_pct": 7.84,
+      "cum_share_pct": 76.18
+    },
+    {
+      "category": "Kitchen & Dining",
+      "gross_revenue": 1020494.78,
+      "refunds": 27941.94,
+      "net_revenue": 992552.8400000001,
+      "realization_pct": 97.26,
+      "share_pct": 5.24,
+      "cum_share_pct": 81.42
+    }
+  ],
+  "pricing": {
+    "median_customer_discount_pct": 0.44,
+    "discounted_revenue_share_pct": 35.2,
+    "avg_discount_depth_pct": 31.4,
+    "deep_discount_revenue": 1224000.88,
+    "discount_behaviour": [
+      {
+        "discount_group": "High Discount (>5%)",
+        "customers": 1011,
+        "avg_monetary": 5383.311,
+        "avg_frequency": 7.25,
+        "avg_units_per_order": 494.394,
+        "churn_rate_pct": 40.5,
+        "avg_discount_pct": 0.136
+      },
+      {
+        "discount_group": "Standard/Low",
+        "customers": 4870,
+        "avg_monetary": 2239.941,
+        "avg_frequency": 6.087,
+        "avg_units_per_order": 198.744,
+        "churn_rate_pct": 53.0,
+        "avg_discount_pct": -0.019
+      }
+    ],
+    "discount_dependent_churn_gap_pp": -12.5
+  },
+  "inventory": {
+    "product_skus": 4793,
+    "dead_stock_skus": 1628,
+    "dead_stock_prior_year_revenue": 1685338.57,
+    "chronic_stockout_skus": 2168,
+    "fast_mover_skus": 633,
+    "slow_mover_skus": 634,
+    "avg_stockout_weeks": 27.7,
+    "top_chronic_stockout": [
+      {
+        "stockcode": "23843",
+        "description": "PAPER CRAFT , LITTLE BIRDIE",
+        "category": "Stationery & Gifting",
+        "stockout_weeks_52w": 52,
+        "avg_weekly_units": 1528.21
+      },
+      {
+        "stockcode": "84611B",
+        "description": "BLACK NEW BAROQUE FLOCK BOX",
+        "category": "Other Products",
+        "stockout_weeks_52w": 52,
+        "avg_weekly_units": 24.28
+      },
+      {
+        "stockcode": "23001",
+        "description": "TRAVEL CARD WALLET DOTCOMGIFTSHOP",
+        "category": "Stationery & Gifting",
+        "stockout_weeks_52w": 52,
+        "avg_weekly_units": 3.77
+      },
+      {
+        "stockcode": "16043",
+        "description": "POP ART PUSH DOWN RUBBER",
+        "category": "Other Products",
+        "stockout_weeks_52w": 52,
+        "avg_weekly_units": 1.85
+      },
+      {
+        "stockcode": "20827",
+        "description": "GOLD APERITIF GLASS",
+        "category": "Drinkware",
+        "stockout_weeks_52w": 52,
+        "avg_weekly_units": 1.66
+      },
+      {
+        "stockcode": "17001",
+        "description": "HEAVENS SCENT FRAGRANCE OILS ASSTD",
+        "category": "Other Products",
+        "stockout_weeks_52w": 52,
+        "avg_weekly_units": 1.36
+      },
+      {
+        "stockcode": "37487B",
+        "description": "YELLOW/ORANGE FLOWER DESIGN PLATE",
+        "category": "Kitchen & Dining",
+        "stockout_weeks_52w": 52,
+        "avg_weekly_units": 1.28
+      },
+      {
+        "stockcode": "84402B",
+        "description": "PURPLE DRESS JEWELLERY STAND",
+        "category": "Other Products",
+        "stockout_weeks_52w": 52,
+        "avg_weekly_units": 1.17
+      },
+      {
+        "stockcode": "47556B",
+        "description": "TEA TIME TEA TOWELS",
+        "category": "Bath & Storage",
+        "stockout_weeks_52w": 51,
+        "avg_weekly_units": 73.58
+      },
+      {
+        "stockcode": "21785",
+        "description": "RAIN PONCHO",
+        "category": "Other Products",
+        "stockout_weeks_52w": 51,
+        "avg_weekly_units": 7.7
+      }
+    ]
+  },
+  "overall_return_rate_pct": 3.65,
+  "return_hotspots_count": 39,
+  "top_return_hotspots": [
+    {
+      "stockcode": "23843",
+      "description": "PAPER CRAFT , LITTLE BIRDIE",
+      "gross": 168469.6,
+      "refunds": 168469.6,
+      "return_rate_pct": 100.0
+    },
+    {
+      "stockcode": "23166",
+      "description": "MEDIUM CERAMIC TOP STORAGE JAR",
+      "gross": 81700.92000000001,
+      "refunds": 77479.64,
+      "return_rate_pct": 94.83
+    },
+    {
+      "stockcode": "71477",
+      "description": "COLOUR GLASS. STAR T-LIGHT HOLDER",
+      "gross": 44680.75,
+      "refunds": 7164.12,
+      "return_rate_pct": 16.03
+    },
+    {
+      "stockcode": "21108",
+      "description": "FAIRY CAKE FLANNEL ASSORTED COLOUR",
+      "gross": 25407.27,
+      "refunds": 6614.37,
+      "return_rate_pct": 26.03
+    },
+    {
+      "stockcode": "79323W",
+      "description": "WHITE CHERRY LIGHTS",
+      "gross": 18048.72,
+      "refunds": 6421.1,
+      "return_rate_pct": 35.58
+    }
+  ],
+  "watchlist": [
+    {
+      "category": "Other Products",
+      "gross_revenue": 7987818.47,
+      "refund_amount": 270043.36,
+      "refund_rate": 3.38,
+      "median_revenue": 361897.37,
+      "median_refund_rate": 3.01,
+      "quadrant": "Bleed"
+    },
+    {
+      "category": "Bags & Travel",
+      "gross_revenue": 1952998.73,
+      "refund_amount": 33358.81,
+      "refund_rate": 1.71,
+      "median_revenue": 361897.37,
+      "median_refund_rate": 3.01,
+      "quadrant": "Star"
+    },
+    {
+      "category": "Stationery & Gifting",
+      "gross_revenue": 1818959.92,
+      "refund_amount": 201407.03,
+      "refund_rate": 11.07,
+      "median_revenue": 361897.37,
+      "median_refund_rate": 3.01,
+      "quadrant": "Bleed"
+    },
+    {
+      "category": "Christmas & Seasonal",
+      "gross_revenue": 1733967.87,
+      "refund_amount": 44971.12,
+      "refund_rate": 2.59,
+      "median_revenue": 361897.37,
+      "median_refund_rate": 3.01,
+      "quadrant": "Star"
+    },
+    {
+      "category": "Drinkware",
+      "gross_revenue": 1521968.37,
+      "refund_amount": 37565.01,
+      "refund_rate": 2.47,
+      "median_revenue": 361897.37,
+      "median_refund_rate": 3.01,
+      "quadrant": "Star"
+    },
+    {
+      "category": "Kitchen & Dining",
+      "gross_revenue": 1020494.78,
+      "refund_amount": 27941.94,
+      "refund_rate": 2.74,
+      "median_revenue": 361897.37,
+      "median_refund_rate": 3.01,
+      "quadrant": "Star"
+    },
+    {
+      "category": "Home D\u00e9cor",
+      "gross_revenue": 1011170.64,
+      "refund_amount": 20676.94,
+      "refund_rate": 2.04,
+      "median_revenue": 361897.37,
+      "median_refund_rate": 3.01,
+      "quadrant": "Star"
+    },
+    {
+      "category": "Lighting",
+      "gross_revenue": 798721.91,
+      "refund_amount": 38079.02,
+      "refund_rate": 4.77,
+      "median_revenue": 361897.37,
+      "median_refund_rate": 3.01,
+      "quadrant": "Bleed"
+    }
+  ],
+  "cogs_note": "No cost fields exist in the source dataset: margin is expressed as revenue realization (net of refunds) and price position, not gross margin."
+}

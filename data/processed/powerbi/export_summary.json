@@ -1,0 +1,23 @@
+{
+  "rows": {
+    "dim_date": 739,
+    "dim_country": 43,
+    "dim_product": 5131,
+    "dim_customer": 5881,
+    "fact_sales": 1010534,
+    "fact_returns": 22497,
+    "customer_insights": 5881,
+    "forecast_monthly": 48,
+    "model_metrics": 4,
+    "monthly_series": 25,
+    "cohort_retention": 25,
+    "product_features": 4813,
+    "inventory_features": 4813
+  },
+  "checks": {
+    "rows_fact_sales": 1010534,
+    "rows_fact_returns": 22497,
+    "rows_customer_insights": 5881,
+    "gross_revenue_matches_kpi": true
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "training_months": 24,
+  "training_window": "2009-12-01 to 2011-11-01",
+  "data_note": "2011-12 excluded from training (only 9 days of data); shown as partial actual in charts",
+  "interval_note": "Approximate 95% bands from residual volatility (ETS bands widen with horizon)",
+  "models_compared": [
+    "Moving Average",
+    "Seasonal Naive",
+    "Holt",
+    "Holt-Winters"
+  ],
+  "backtest": [
+    {
+      "model": "Moving Average",
+      "mape_pct": 26.82,
+      "mae": 303967.28,
+      "wmape_pct": 32.47,
+      "status": "ok"
+    },
+    {
+      "model": "Seasonal Naive",
+      "mape_pct": 6.36,
+      "mae": 56935.61,
+      "wmape_pct": 6.08,
+      "status": "ok"
+    },
+    {
+      "model": "Holt",
+      "mape_pct": 21.55,
+      "mae": 235679.18,
+      "wmape_pct": 25.18,
+      "status": "ok"
+    },
+    {
+      "model": "Holt-Winters",
+      "mape_pct": null,
+      "mae": null,
+      "wmape_pct": null,
+      "status": "failed: Cannot compute initial seasonals using heuristic method with less than two full seasonal cycles in the data."
+    }
+  ],
+  "best_model": "Seasonal Naive",
+  "next_quarter_forecast": 1802198.58,
+  "next_quarter_low_95": 1287951.57,
+  "next_quarter_high_95": 2316445.59,
+  "next_6_months_forecast": 3698674.5,
+  "next_12_months_forecast": 9315430.01,
+  "next_12_months_low_95": 7258441.97,
+  "next_12_months_high_95": 11372418.05,
+  "trailing_12_actual": 9315430.01,
+  "implied_growth_pct": 0.0,
+  "first_month_forecast": 746723.61,
+  "first_month_label": "2011-12-01"
+}

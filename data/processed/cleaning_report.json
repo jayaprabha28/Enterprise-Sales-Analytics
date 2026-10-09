@@ -1,0 +1,21 @@
+{
+  "raw_rows": 1067371,
+  "dropped_bad_dates": 0,
+  "quarantined_rows": 34340,
+  "quarantine_reasons": {
+    "duplicate_row": 34335,
+    "negative_price": 5
+  },
+  "sales_rows": 1010534,
+  "return_rows": 22497,
+  "reconciled": true,
+  "gross_sales_revenue": 20476260.43,
+  "returns_refunds": 1462050.61,
+  "net_revenue": 19014209.82,
+  "null_customer_id_rows": 231039,
+  "date_min": "2009-12-01 07:45:00",
+  "date_max": "2011-12-09 12:50:00",
+  "distinct_invoices": 41938,
+  "distinct_customers": 5881,
+  "distinct_products": 4813
+}

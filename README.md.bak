@@ -1,0 +1,168 @@
+﻿# Enterprise Sales Analytics â€” Python â†’ PostgreSQL â†’ Power BI
+
+An end-to-end revenue intelligence platform built on the real Kaggle dataset
+**[UCI Online Retail II](https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci)** â€”
+1,067,371 transaction lines from a UK-based wholesale/retail e-commerce business
+(Dec 2009 â†’ Dec 2011, GBP). The pipeline takes the raw CSV through a reproducible
+cleaning stage into a PostgreSQL **star schema**, runs **22 SQL analyses**, then trains
+**customer segmentation, churn prediction and forecasting** models and exports
+**Power BI-ready flat files** plus auto-generated business reports.
+
+```
+raw CSV â”€â”€â–¶ data_cleaning â”€â”€â–¶ fact_sales / fact_returns / quarantine (parquet)
+                 â”‚
+                 â–¼
+          feature_engineering â”€â”€â–¶ dimensions, customer/product features, monthly series
+                 â”‚
+                 â–¼
+          load_postgres â”€â”€â–¶ PostgreSQL star schema (COPY loader, row-reconciled)
+                 â”‚
+                 â–¼
+          run_sql â”€â”€â–¶ 22 analytics queries â†’ data/processed/sql_results/*.csv
+                 â”‚
+                 â–¼
+   eda â”€â–¶ segmentation â”€â–¶ churn_model â”€â–¶ forecasting â”€â–¶ analytics
+                 â”‚                                                  â”‚
+                 â–¼                                                  â–¼
+     reports/figures/*.png  â—€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€       recommendation_engine
+                 â–¼                                        â”‚
+          export_powerbi â”€â”€â–¶ data/processed/powerbi/*.csv  â–¼
+                 â”‚                          reports/*.md, notebooks/*.ipynb
+                 â–¼
+        Power BI Desktop (see powerbi/)
+```
+
+---
+
+## Key results (from the current run)
+
+| Area | Result |
+|---|---|
+| Extracted & cleansed | 1,067,371 raw â†’ 1,010,534 sales + 22,497 returns + 34,340 quarantined, **reconciled to the row** |
+| Integrated | Star schema in PostgreSQL 18 â€” **Python = Postgres to the penny** (`matches_python: true`) |
+| SQL analytics | 22 queries across sales, customers, products, profitability |
+| EDA | 12 figures; best month Nov-2011 Â£1,456k; YoY like-for-like **+1.8%**; churn **50.9%**; 1,640 dead SKUs |
+| Segmentation | RFM (+K-Means, silhouette 0.43); **Champions+Loyal = 80.4% of revenue** |
+| Churn | Best model **Logistic Regression AUC 0.768** (isotonic-calibrated); 2,495 High-risk customers = **Â£1.53M** revenue at risk |
+| Forecast | **Seasonal Naive, 6.1% WMAPE** backtest; next quarter **Â£1.80M** (95% band Â£1.29â€“2.32M); next 12m **Â£9.32M** |
+| Business story | `reports/business_insights.md`, `reports/recommendations.md` (P0/P1/P2), 6-page Power BI build |
+
+---
+
+## Repository layout
+
+```
+â”œâ”€â”€ data/
+â”‚   â”œâ”€â”€ raw/                 # online_retail_ii.csv (download, see below)
+â”‚   â””â”€â”€ processed/           # parquet, csv, summary json, sql_results/, powerbi/
+â”œâ”€â”€ sql/
+â”‚   â”œâ”€â”€ schema.sql           # star schema DDL
+â”‚   â””â”€â”€ *_analysis.sql       # 22 analytics queries
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ config.py            # paths, DB config, business rules
+â”‚   â”œâ”€â”€ data_cleaning.py     # raw â†’ facts + quarantine + reconciliation
+â”‚   â”œâ”€â”€ feature_engineering.py # dims, features, monthly/weekly series, cohorts, KPI json
+â”‚   â”œâ”€â”€ load_postgres.py     # CREATE SCHEMA + COPY loader + revenue cross-check
+â”‚   â”œâ”€â”€ run_sql.py           # executes the 22 queries â†’ sql_results/*.csv
+â”‚   â”œâ”€â”€ eda.py               # 12 figures + eda_summary.json
+â”‚   â”œâ”€â”€ segmentation.py      # RFM + K-Means customer segmentation
+â”‚   â”œâ”€â”€ churn_model.py       # leakage-free churn model + isotonic calibration
+â”‚   â”œâ”€â”€ forecasting.py       # backtest + 12-month forecast
+â”‚   â”œâ”€â”€ analytics.py         # profitability, pricing/discount, inventory, returns
+â”‚   â”œâ”€â”€ recommendation_engine.py # builds business_insights.md + recommendations.md
+â”‚   â”œâ”€â”€ export_powerbi.py    # star + flat CSVs for Power BI
+â”‚   â”œâ”€â”€ build_notebooks.py   # generates the 5 .ipynb
+â”‚   â””â”€â”€ run_all.py           # one-command end-to-end pipeline
+â”œâ”€â”€ notebooks/               # 5 runnable Jupyter notebooks (jupyter nbconvert --execute)
+â”œâ”€â”€ powerbi/                 # README, data model, 41 DAX measures, 6 dashboard pages
+â”œâ”€â”€ reports/
+â”‚   â”œâ”€â”€ figures/             # all charts
+â”‚   â””â”€â”€ business_insights.md, recommendations.md
+â”œâ”€â”€ requirements.txt
+â””â”€â”€ LICENSE
+```
+
+---
+
+## Setup
+
+### 1. Python
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 2. PostgreSQL (18)
+
+Install PostgreSQL, then make local-host auth trust-based so the loader can connect:
+
+```powershell
+# edit %PROGRAMDATA%\PostgreSQL\18\data\pg_hba.conf :
+#   change the IPv4 local lines from scram-sha-256/md5 to trust, restart the service
+```
+
+`schema.sql` and `load_postgres.py` create the `enterprise_sales` database and tables
+and `COPY`-load the data on first run. Table creation is idempotent.
+
+### 3. Data
+
+Place `online_retail_ii.csv` in `data/raw/` (or run
+`LoadFile -Path https://www.kaggle.com/api/v1/datasets/download/mashlyn/online-retail-ii-uci -DestinationPath data/raw/online_retail_ii.zip`
+and unzip). The pipeline errors with a clear message if the file is missing.
+
+---
+
+## Run the whole pipeline
+
+```bash
+python src\run_all.py          # everything, in dependency order
+```
+
+...or step by step (each script is independently rerunnable/idempotent):
+
+```bash
+python src\data_cleaning.py    # clean â†’ parquet facts + cleaning_report.json
+python src\feature_engineering.py
+python src\load_postgres.py    # requires PostgreSQL running
+python src\run_sql.py          # 22 SQL analyses â†’ data/processed/sql_results/
+python src\eda.py
+python src\segmentation.py
+python src\churn_model.py
+python src\forecasting.py
+python src\analytics.py
+python src\recommendation_engine.py   # reports/*.md
+python src\export_powerbi.py          # data/processed/powerbi/*.csv
+python src\build_notebooks.py         # notebooks/*.ipynb (execute with jupyter)
+```
+
+---
+
+## Validation philosophy
+
+- Row-level reconciliation: `sales + returns + quarantine + dropped = raw` (`reconciled: true`).
+- Cross-system check: PostgreSQL `SUM(line_revenue)` == Python aggregate **to the penny**
+  (`load_postgres.py` prints `matches_python: true`).
+- Churn model is leakage-free (cutoff = snapshot âˆ’ 90d; features â‰¤ cutoff; label = next 90d)
+  and calibrated so risk bands are decision-ready.
+- Forecast is backtested on a held-out 6 months with WMAPE, with the partial last month excluded.
+
+## Known data limitations (also in `reports/business_insights.md` Â§10)
+
+- No cost/COGS or inventory-on-hand fields â†’ profitability is **revenue realization**
+  (net of refunds) and price position; inventory health uses sales-velocity gap detection.
+- No marketing-spend/salesperson tables â†’ discount analytics and customer analytics substitute.
+- Guest lines (no Customer ID, ~23% of lines) are revenue-inclusive but customer-excluded.
+- December 2011 is partial (data ends Dec 9) â€” excluded from model training.
+
+---
+
+## Power BI
+
+`powerbi/README.md` is the complete rebuild guide: CSV import (recommended) or PostgreSQL
+DirectQuery, the 8 relationships, 41 DAX measures, and the 6-page dashboard spec
+(Executive Overview, Sales, Customer Intelligence, Product & Profitability, Returns & Pricing,
+Forecast & Risk). Exports live in `data/processed/powerbi/`.
+
+## License
+
+MIT â€” see `LICENSE`. Dataset Â© its Kaggle owner / original authors (research use).

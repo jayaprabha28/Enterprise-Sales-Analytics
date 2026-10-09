@@ -1,0 +1,85 @@
+2026-10-09 11:53:25 - data_quality - INFO - run:101 - Starting data quality validation
+2026-10-09 11:53:25 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_reconciliation]: PASSED - {'reconciled': True}
+2026-10-09 11:53:25 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_count_balance]: PASSED - {'total_accounted': 1067371, 'raw_rows': 1067371}
+2026-10-09 11:53:25 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_positive]: PASSED - {'gross_sales_revenue': 20476260.43}
+2026-10-09 11:53:25 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_exists]: PASSED - {'gross_revenue': 20476260.43}
+2026-10-09 11:53:25 - data_quality - INFO - log_data_quality:86 - Data Quality Check [net_revenue_exists]: PASSED - {'net_revenue': 19014209.82}
+2026-10-09 11:53:25 - data_quality - INFO - log_data_quality:86 - Data Quality Check [orders_positive]: PASSED - {'orders': 41938}
+2026-10-09 11:53:25 - data_quality - INFO - log_data_quality:86 - Data Quality Check [customers_positive]: PASSED - {'customers': 5881}
+2026-10-09 11:53:25 - data_quality - INFO - run:103 - Data quality validation completed: PASS
+2026-10-09 11:55:19 - ml_evaluation - INFO - run:115 - Starting ML evaluation
+2026-10-09 11:55:19 - ml_evaluation - INFO - log_data_quality:86 - Data Quality Check [churn_leakage_guard]: PASSED - {'design': 'Features up to cutoff, label = activity in following 90 days (no leakage)'}
+2026-10-09 11:55:19 - ml_evaluation - INFO - run:121 - ML evaluation completed
+2026-10-09 12:02:42 - mongo_integration - INFO - connect:45 - MongoDB integration disabled or pymongo not available
+2026-10-09 12:08:29 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_reconciliation]: PASSED - {'reconciled': True}
+2026-10-09 12:08:29 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_count_balance]: PASSED - {'total_accounted': 1067371, 'raw_rows': 1067371}
+2026-10-09 12:08:29 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_positive]: PASSED - {'gross_sales_revenue': 20476260.43}
+2026-10-09 12:08:29 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_exists]: PASSED - {'gross_revenue': 20476260.43}
+2026-10-09 12:08:29 - data_quality - INFO - log_data_quality:86 - Data Quality Check [net_revenue_exists]: PASSED - {'net_revenue': 19014209.82}
+2026-10-09 12:08:29 - data_quality - INFO - log_data_quality:86 - Data Quality Check [orders_positive]: PASSED - {'orders': 41938}
+2026-10-09 12:08:29 - data_quality - INFO - log_data_quality:86 - Data Quality Check [customers_positive]: PASSED - {'customers': 5881}
+2026-10-09 12:09:04 - data_quality - INFO - run:101 - Starting data quality validation
+2026-10-09 12:09:04 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_reconciliation]: PASSED - {'reconciled': True}
+2026-10-09 12:09:04 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_count_balance]: PASSED - {'total_accounted': 1067371, 'raw_rows': 1067371}
+2026-10-09 12:09:04 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_positive]: PASSED - {'gross_sales_revenue': 20476260.43}
+2026-10-09 12:09:04 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_exists]: PASSED - {'gross_revenue': 20476260.43}
+2026-10-09 12:09:04 - data_quality - INFO - log_data_quality:86 - Data Quality Check [net_revenue_exists]: PASSED - {'net_revenue': 19014209.82}
+2026-10-09 12:09:04 - data_quality - INFO - log_data_quality:86 - Data Quality Check [orders_positive]: PASSED - {'orders': 41938}
+2026-10-09 12:09:04 - data_quality - INFO - log_data_quality:86 - Data Quality Check [customers_positive]: PASSED - {'customers': 5881}
+2026-10-09 12:09:04 - data_quality - INFO - run:103 - Data quality validation completed: PASS
+2026-10-09 12:09:09 - ml_evaluation - INFO - run:115 - Starting ML evaluation
+2026-10-09 12:09:09 - ml_evaluation - INFO - log_data_quality:86 - Data Quality Check [churn_leakage_guard]: PASSED - {'design': 'Features up to cutoff, label = activity in following 90 days (no leakage)'}
+2026-10-09 12:09:09 - ml_evaluation - INFO - run:121 - ML evaluation completed
+2026-10-09 12:19:28 - data_quality - INFO - run:101 - Starting data quality validation
+2026-10-09 12:19:28 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_reconciliation]: PASSED - {'reconciled': True}
+2026-10-09 12:19:28 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_count_balance]: PASSED - {'total_accounted': 1067371, 'raw_rows': 1067371}
+2026-10-09 12:19:28 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_positive]: PASSED - {'gross_sales_revenue': 20476260.43}
+2026-10-09 12:19:28 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_exists]: PASSED - {'gross_revenue': 20476260.43}
+2026-10-09 12:19:28 - data_quality - INFO - log_data_quality:86 - Data Quality Check [net_revenue_exists]: PASSED - {'net_revenue': 19014209.82}
+2026-10-09 12:19:28 - data_quality - INFO - log_data_quality:86 - Data Quality Check [orders_positive]: PASSED - {'orders': 41938}
+2026-10-09 12:19:28 - data_quality - INFO - log_data_quality:86 - Data Quality Check [customers_positive]: PASSED - {'customers': 5881}
+2026-10-09 12:19:28 - data_quality - INFO - run:103 - Data quality validation completed: PASS
+2026-10-09 12:19:35 - data_quality - INFO - run:101 - Starting data quality validation
+2026-10-09 12:19:35 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_reconciliation]: PASSED - {'reconciled': True}
+2026-10-09 12:19:35 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_count_balance]: PASSED - {'total_accounted': 1067371, 'raw_rows': 1067371}
+2026-10-09 12:19:35 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_positive]: PASSED - {'gross_sales_revenue': 20476260.43}
+2026-10-09 12:19:35 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_exists]: PASSED - {'gross_revenue': 20476260.43}
+2026-10-09 12:19:35 - data_quality - INFO - log_data_quality:86 - Data Quality Check [net_revenue_exists]: PASSED - {'net_revenue': 19014209.82}
+2026-10-09 12:19:35 - data_quality - INFO - log_data_quality:86 - Data Quality Check [orders_positive]: PASSED - {'orders': 41938}
+2026-10-09 12:19:35 - data_quality - INFO - log_data_quality:86 - Data Quality Check [customers_positive]: PASSED - {'customers': 5881}
+2026-10-09 12:19:35 - data_quality - INFO - run:103 - Data quality validation completed: PASS
+2026-10-09 12:44:21 - enterprise_sales_analytics - INFO - run:42 - Starting pipeline run: 20261009_124421
+2026-10-09 12:44:22 - enterprise_sales_analytics - INFO - __enter__:67 - Starting step: data_cleaning
+2026-10-09 12:44:32 - enterprise_sales_analytics - INFO - __exit__:78 - Completed step: data_cleaning in 10.22s
+2026-10-09 12:44:32 - enterprise_sales_analytics - INFO - __enter__:67 - Starting step: feature_engineering
+2026-10-09 12:44:49 - enterprise_sales_analytics - INFO - __exit__:78 - Completed step: feature_engineering in 16.79s
+2026-10-09 12:44:49 - enterprise_sales_analytics - INFO - __enter__:67 - Starting step: load_postgres
+2026-10-09 12:45:46 - enterprise_sales_analytics - INFO - __exit__:78 - Completed step: load_postgres in 57.02s
+2026-10-09 12:45:46 - enterprise_sales_analytics - INFO - __enter__:67 - Starting step: run_sql
+2026-10-09 12:45:59 - enterprise_sales_analytics - INFO - __exit__:78 - Completed step: run_sql in 13.07s
+2026-10-09 12:46:02 - enterprise_sales_analytics - INFO - __enter__:67 - Starting step: eda
+2026-10-09 12:46:11 - enterprise_sales_analytics - INFO - __exit__:78 - Completed step: eda in 8.65s
+2026-10-09 12:46:12 - enterprise_sales_analytics - INFO - __enter__:67 - Starting step: segmentation
+2026-10-09 12:46:20 - enterprise_sales_analytics - INFO - __exit__:78 - Completed step: segmentation in 8.28s
+2026-10-09 12:47:01 - data_quality - INFO - run:101 - Starting data quality validation
+2026-10-09 12:47:01 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_reconciliation]: PASSED - {'reconciled': True}
+2026-10-09 12:47:01 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_count_balance]: PASSED - {'total_accounted': 1067371, 'raw_rows': 1067371}
+2026-10-09 12:47:01 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_positive]: PASSED - {'gross_sales_revenue': 20476260.43}
+2026-10-09 12:47:01 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_exists]: PASSED - {'gross_revenue': 20476260.43}
+2026-10-09 12:47:01 - data_quality - INFO - log_data_quality:86 - Data Quality Check [net_revenue_exists]: PASSED - {'net_revenue': 19014209.82}
+2026-10-09 12:47:01 - data_quality - INFO - log_data_quality:86 - Data Quality Check [orders_positive]: PASSED - {'orders': 41938}
+2026-10-09 12:47:01 - data_quality - INFO - log_data_quality:86 - Data Quality Check [customers_positive]: PASSED - {'customers': 5881}
+2026-10-09 12:47:01 - data_quality - INFO - run:103 - Data quality validation completed: PASS
+2026-10-09 12:47:07 - ml_evaluation - INFO - run:115 - Starting ML evaluation
+2026-10-09 12:47:07 - ml_evaluation - INFO - log_data_quality:86 - Data Quality Check [churn_leakage_guard]: PASSED - {'design': 'Features up to cutoff, label = activity in following 90 days (no leakage)'}
+2026-10-09 12:47:07 - ml_evaluation - INFO - run:121 - ML evaluation completed
+2026-10-09 12:47:12 - mongo_integration - INFO - connect:45 - MongoDB integration disabled or pymongo not available
+2026-10-09 12:57:05 - data_quality - INFO - run:101 - Starting data quality validation
+2026-10-09 12:57:05 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_reconciliation]: PASSED - {'reconciled': True}
+2026-10-09 12:57:05 - data_quality - INFO - log_data_quality:86 - Data Quality Check [row_count_balance]: PASSED - {'total_accounted': 1067371, 'raw_rows': 1067371}
+2026-10-09 12:57:05 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_positive]: PASSED - {'gross_sales_revenue': 20476260.43}
+2026-10-09 12:57:05 - data_quality - INFO - log_data_quality:86 - Data Quality Check [gross_revenue_exists]: PASSED - {'gross_revenue': 20476260.43}
+2026-10-09 12:57:05 - data_quality - INFO - log_data_quality:86 - Data Quality Check [net_revenue_exists]: PASSED - {'net_revenue': 19014209.82}
+2026-10-09 12:57:05 - data_quality - INFO - log_data_quality:86 - Data Quality Check [orders_positive]: PASSED - {'orders': 41938}
+2026-10-09 12:57:05 - data_quality - INFO - log_data_quality:86 - Data Quality Check [customers_positive]: PASSED - {'customers': 5881}
+2026-10-09 12:57:05 - data_quality - INFO - run:103 - Data quality validation completed: PASS

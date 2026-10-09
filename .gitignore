@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.idea/
+.vscode/
+.ipynb_checkpoints/
+
+# Large / regenerable data artifacts (rebuild via src/run_all.py)
+data/raw/*.zip
+data/raw/*.csv
+data/processed/pg_load/
+data/processed/powerbi/*.csv
+data/processed/sql_results/*.csv
+data/processed/*.parquet
+data/processed/*.csv
+data/processed/export_summary.json
+
+# Regenerable figures and notebooks (rebuild via src/eda.py, src/build_notebooks.py)
+reports/figures/*.png
+notebooks/*.ipynb

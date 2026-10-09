@@ -1,0 +1,99 @@
+{
+  "customers_segmented": 5881,
+  "best_k": 2,
+  "silhouette": 0.4323,
+  "segment_profiles": {
+    "Champions": "Bought recently, buy often, spend the most",
+    "Loyal Customers": "Consistent repeat buyers with strong spend",
+    "Potential Loyalists": "Recent buyers showing increasing frequency",
+    "New Customers": "First purchase within the last 90 days",
+    "At Risk": "Valuable customers whose recency is deteriorating",
+    "Hibernating": "Low activity, long overdue, low value",
+    "Lost": "No purchase for more than 180 days with weak history",
+    "Big Spenders": "High monetary value but irregular or cooling engagement"
+  },
+  "segments": [
+    {
+      "rfm_segment": "Champions",
+      "customers": 1261,
+      "revenue": 11322462.45,
+      "avg_recency": 19.475019825535288,
+      "avg_frequency": 17.387787470261696,
+      "avg_monetary": 8978.955154639174,
+      "churn_rate": 0.0,
+      "revenue_share_pct": 69.25
+    },
+    {
+      "rfm_segment": "Loyal Customers",
+      "customers": 698,
+      "revenue": 1820397.91,
+      "avg_recency": 84.82808022922636,
+      "avg_frequency": 7.829512893982808,
+      "avg_monetary": 2608.019928366762,
+      "churn_rate": 0.4054441260744986,
+      "revenue_share_pct": 11.13
+    },
+    {
+      "rfm_segment": "At Risk",
+      "customers": 858,
+      "revenue": 1596108.5,
+      "avg_recency": 374.3310023310023,
+      "avg_frequency": 4.44988344988345,
+      "avg_monetary": 1860.266317016317,
+      "churn_rate": 1.0,
+      "revenue_share_pct": 9.76
+    },
+    {
+      "rfm_segment": "Big Spenders",
+      "customers": 218,
+      "revenue": 445310.39,
+      "avg_recency": 66.77522935779817,
+      "avg_frequency": 3.18348623853211,
+      "avg_monetary": 2042.7082110091744,
+      "churn_rate": 0.26146788990825687,
+      "revenue_share_pct": 2.72
+    },
+    {
+      "rfm_segment": "New Customers",
+      "customers": 598,
+      "revenue": 383970.71,
+      "avg_recency": 34.123745819397996,
+      "avg_frequency": 1.7775919732441472,
+      "avg_monetary": 642.0914882943144,
+      "churn_rate": 0.0,
+      "revenue_share_pct": 2.35
+    },
+    {
+      "rfm_segment": "Lost",
+      "customers": 1517,
+      "revenue": 365168.56,
+      "avg_recency": 453.210942649967,
+      "avg_frequency": 1.4568226763348715,
+      "avg_monetary": 240.71757415952538,
+      "churn_rate": 1.0,
+      "revenue_share_pct": 2.23
+    },
+    {
+      "rfm_segment": "Potential Loyalists",
+      "customers": 349,
+      "revenue": 212426.38,
+      "avg_recency": 27.87106017191977,
+      "avg_frequency": 2.7392550143266474,
+      "avg_monetary": 608.6715759312322,
+      "churn_rate": 0.0,
+      "revenue_share_pct": 1.3
+    },
+    {
+      "rfm_segment": "Hibernating",
+      "customers": 382,
+      "revenue": 205196.04,
+      "avg_recency": 117.49738219895288,
+      "avg_frequency": 2.2068062827225132,
+      "avg_monetary": 537.1624083769634,
+      "churn_rate": 0.7225130890052356,
+      "revenue_share_pct": 1.25
+    }
+  ],
+  "at_risk_plus_lost_revenue": 2166473.1,
+  "champions_plus_loyal_revenue_share_pct": 80.38
+}
